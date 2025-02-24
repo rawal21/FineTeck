@@ -1,0 +1,82 @@
+:root {
+  --primary-color: #4a90e2;
+  --secondary-color: #f5a623;
+  --success-color: #7ed321;
+  --danger-color: #d0021b;
+  --light-bg: #f8f9fa;
+  --dark-bg: #343a40;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: var(--light-bg);
+}
+
+.app {
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: var(--dark-bg);
+  color: white;
+  transition: all 0.3s;
+}
+
+.sidebar-collapsed {
+  width: 80px;
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.card {
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.progress {
+  height: 10px;
+  border-radius: 5px;
+}
+
+.chart-container {
+  height: 300px;
+}
+
+.landing-page .feature-icon {
+  color: var(--primary-color);
+}
+
+.landing-page .card {
+  transition: transform 0.3s ease-in-out;
+}
+
+.landing-page .card:hover {
+  transform: translateY(-10px);
+}
+
+.landing-page .btn-light {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.landing-page .btn-light:hover {
+  background-color: var(--light-bg);
+  color: var(--primary-color);
+}
+

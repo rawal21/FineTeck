@@ -1,0 +1,113 @@
+/* Custom CSS to maintain the visual design */
+:root {
+  --bs-primary: #0070f3;
+  --bs-primary-rgb: 0, 112, 243;
+}
+
+/* Grid Background */
+.bg-grid-light {
+  background-size: 40px 40px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+}
+
+/* Gradient Text */
+.text-gradient-primary {
+  background: linear-gradient(to right, var(--bs-primary), rgba(var(--bs-primary-rgb), 0.5));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Gradient Background */
+.bg-gradient-primary-light {
+  background: linear-gradient(
+    to right top,
+    rgba(var(--bs-primary-rgb), 0.1),
+    rgba(var(--bs-primary-rgb), 0.05),
+    transparent
+  );
+}
+
+/* Workflow Timeline */
+.workflow-timeline {
+  position: relative;
+}
+
+.workflow-timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background-color: var(--bs-border-color);
+}
+
+.workflow-icon {
+  width: 64px;
+  height: 64px;
+  border: 4px solid var(--bs-body-bg);
+  z-index: 1;
+}
+
+/* Feature Card Hover Effect */
+.feature-card {
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-card img {
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Blur Effect */
+.blur {
+  filter: blur(24px);
+}
+
+/* Custom Button Styles */
+.btn {
+  padding: 0.5rem 1.5rem;
+  font-weight: 500;
+}
+
+.btn-lg {
+  padding: 0.75rem 2rem;
+}
+
+/* Custom Card Styles */
+.card {
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
+
+/* Custom Typography */
+.display-4,
+.display-5,
+.display-6 {
+  letter-spacing: -0.02em;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .workflow-timeline::before {
+    left: 32px;
+  }
+
+  .workflow-icon {
+    margin-left: 0;
+  }
+}
+
