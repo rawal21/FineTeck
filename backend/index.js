@@ -8,6 +8,7 @@ const authRoutes = require("./routes/authRoutes");
 const profileRoutes = require("./routes/profileRoutes");
 const transactionRoutes = require("./routes/transactionRoutes");
 const BudgetRoutes = require("./routes/BudgetRoutes");
+const AiRoutes = require("./routes/AiRoutes");
 
 
 
@@ -23,6 +24,7 @@ app.use("/api/auth" , authRoutes);
 app.use("/api/user" , profileRoutes);
 app.use("/api/transaction" , transactionRoutes);
 app.use("/api/budget" , BudgetRoutes);
+app.use("/api/insights" , AiRoutes);
 
 
 
