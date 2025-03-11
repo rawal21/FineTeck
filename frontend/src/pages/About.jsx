@@ -1,81 +1,53 @@
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Container, Row, Col } from "react-bootstrap"
 
-export default function AboutPage() {
+export default function About() {
   return (
-    <div className="min-vh-100 bg-light">
-      <div className="container py-5">
-        {/* About Section */}
-        <section className="mb-5 text-center">
-          <h1 className="mb-4 display-5 fw-bold">About FinanceAI</h1>
-          <div className="mx-auto col-md-8">
-            <p className="mb-3 fs-5 text-secondary">
-              FinanceAI is a cutting-edge financial management platform that combines the power of artificial 
+    <div className="min-vh-100 bg-light py-5">
+      <Container>
+        <section className="text-center mb-5">
+          <h1 className="display-4 fw-bold mb-4">About FinanceAI</h1>
+          <div className="mx-auto" style={{ maxWidth: "800px" }}>
+            <p className="lead text-muted mb-4">
+              FinanceAI is a cutting-edge financial management platform that combines the power of artificial
               intelligence with intuitive design to help you make better financial decisions.
             </p>
-            <p className="fs-5 text-secondary">
-              Our mission is to make financial management accessible to everyone, regardless of their financial 
+            <p className="lead text-muted">
+              Our mission is to make financial management accessible to everyone, regardless of their financial
               knowledge or background.
             </p>
           </div>
         </section>
 
-        {/* Team Section */}
-        <section className="mb-5 text-center">
-          <h2 className="mb-4 display-6 fw-bold">Meet the Team</h2>
-          <div className="row g-4 justify-content-center">
-            {[1, 2, 3].map((member) => (
-              <div key={member} className="col-12 col-sm-6 col-lg-4">
-                <div className="text-center">
-                  <div className="mx-auto mb-3 rounded-circle overflow-hidden" style={{ width: "128px", height: "128px" }}>
-                    <img 
-                      alt={`Team Member ${member}`} 
-                      className="img-fluid" 
-                      src={`/placeholder.svg?height=128&width=128`} 
-                    />
-                  </div>
-                  <h3 className="mb-1 h5">John Doe</h3>
-                  <p className="text-secondary">Software Engineer</p>
-                  <div className="d-flex justify-content-center gap-2">
-                    <button className="btn btn-outline-secondary btn-sm">
-                      <Github size={20} />
-                    </button>
-                    <button className="btn btn-outline-secondary btn-sm">
-                      <Linkedin size={20} />
-                    </button>
-                    <button className="btn btn-outline-secondary btn-sm">
-                      <Mail size={20} />
-                    </button>
-                  </div>
+        <section className="py-5">
+          <h2 className="h1 fw-bold text-center mb-5">Key Features</h2>
+          <Row className="gy-4">
+            {["User Authentication & Profile Management", "Dashboard (Main Overview Page)", "Income & Expense Tracking", "Budget Planning & Limits", "AI-Powered Financial Insights & Recommendations", "Data Visualization & Reports", "Smart Savings Plan", "Bill Payment & Reminders", "Expense Splitting (For Groups or Families)", "Educational Resources & Financial Literacy"].map((feature, index) => (
+              <Col key={index} md={6} lg={4}>
+                <div className="p-4 h-100 bg-white rounded-4 shadow-sm text-center">
+                  <h3 className="h5 fw-bold mb-2">{feature}</h3>
                 </div>
-              </div>
+              </Col>
             ))}
-          </div>
+          </Row>
         </section>
 
-        {/* Contact Section */}
-        <section className="text-center">
-          <h2 className="mb-4 display-6 fw-bold">Get in Touch</h2>
-          <div className="mx-auto col-md-6 p-4 border rounded bg-white shadow-sm">
-            <form className="row g-3">
-              <div className="col-12">
-                <label htmlFor="name" className="form-label fw-medium">Name</label>
-                <input type="text" className="form-control" id="name" placeholder="Your name" />
-              </div>
-              <div className="col-12">
-                <label htmlFor="email" className="form-label fw-medium">Email</label>
-                <input type="email" className="form-control" id="email" placeholder="your@email.com" />
-              </div>
-              <div className="col-12">
-                <label htmlFor="message" className="form-label fw-medium">Message</label>
-                <textarea className="form-control" id="message" rows={4} placeholder="Your message"></textarea>
-              </div>
-              <div className="col-12">
-                <button className="btn btn-primary w-100">Send Message</button>
-              </div>
-            </form>
+        <section className="py-5 text-center">
+          <h2 className="display-6 fw-bold mb-4">Meet the Developer</h2>
+          <div className="d-flex flex-column align-items-center">
+            <img
+              src="/developer-profile.jpg"
+              alt="Developer"
+              className="rounded-circle mb-3"
+              style={{ width: "150px", height: "150px", objectFit: "cover" }}
+            />
+            <h3 className="h5 fw-bold">Dikshit</h3>
+            <p className="text-muted">Full-Stack Software Engineer | MERN Stack Developer</p>
+            <p className="text-muted" style={{ maxWidth: "600px" }}>
+              Passionate about building scalable and user-friendly web applications. Experienced in working with modern web technologies and always eager to learn new skills.
+            </p>
           </div>
         </section>
-      </div>
+      </Container>
     </div>
-  );
+  )
 }

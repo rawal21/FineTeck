@@ -12,9 +12,6 @@ const AiRoutes = require("./routes/AiRoutes");
 const GroupRoutes = require("./routes/GroupRoutes");
 const reportRoutes = require("./routes/reportRoutes");
 
-
-
-
 app.use(express.json());
 app.use(cors());
 

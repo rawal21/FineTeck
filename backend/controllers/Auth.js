@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs")
 const User = require("../models/User");
-const generateToken = require("../utils/jwt")
+const {generateToken} = require("../utils/jwt")
 
 
 module.exports.signup = async (req, res) => {
@@ -30,16 +30,29 @@ module.exports.signup = async (req, res) => {
 
 module.exports.login = async (req, res) => {
   try {
+    console.log("Login Request Body:", req.body); // Log request data
+
     const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ message: "Email and password are required" });
+    }
+
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: 'Invalid credentials' });
+    if (!user) {
+      console.log("User not found");
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
+    if (!isMatch) {
+      console.log("Password does not match");
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
 
     const token = generateToken(user._id);
-    res.json({ token });
+    res.json({ token , user });
   } catch (error) {
-    res.status(500).json({ message: 'Server Error' });
+    console.error("Login Error:", error); // Log actual error
+    res.status(500).json({ message: "Server Error", error: error.message });
   }
-} ;
+};

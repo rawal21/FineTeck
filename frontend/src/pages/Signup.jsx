@@ -1,9 +1,54 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaGithub } from "react-icons/fa";
 
 
 export default function SignUpPage() {
+  
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    income: "",
+    currency: "USD",
+  });
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(null);
+    setSuccess(null);
+
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+      console.log(data);
+
+      if (!response.ok) {
+        throw new Error(data.message || "Something went wrong");
+        
+      }
+
+      setSuccess("Account created successfully! Redirecting...");
+      setTimeout(() => navigate("/login"), 2000);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
     <div className="container-fluid min-vh-100 d-flex align-items-center justify-content-center">
       <div className="row w-100">
@@ -27,18 +72,75 @@ export default function SignUpPage() {
               <h1 className="fw-semibold">Create an account</h1>
               <p className="text-muted">Enter your details to get started</p>
             </div>
-            <form>
+            {error && <p className="alert alert-danger">{error}</p>}
+            {success && <p className="alert alert-success">{success}</p>}
+            <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label htmlFor="name" className="form-label">Full Name</label>
-                <input type="text" id="name" className="form-control" placeholder="John Doe" />
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  className="form-control"
+                  placeholder="John Doe"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
               </div>
               <div className="mb-3">
                 <label htmlFor="email" className="form-label">Email</label>
-                <input type="email" id="email" className="form-control" placeholder="name@example.com" />
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  className="form-control"
+                  placeholder="name@example.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
               </div>
               <div className="mb-3">
                 <label htmlFor="password" className="form-label">Password</label>
-                <input type="password" id="password" className="form-control" />
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  className="form-control"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="income" className="form-label">Monthly Income</label>
+                <input
+                  type="number"
+                  id="income"
+                  name="income"
+                  className="form-control"
+                  placeholder="5000"
+                  value={formData.income}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="currency" className="form-label">Currency</label>
+                <select
+                  id="currency"
+                  name="currency"
+                  className="form-control"
+                  value={formData.currency}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="USD">USD ($)</option>
+                  <option value="EUR">EUR (€)</option>
+                  <option value="INR">INR (₹)</option>
+                  <option value="GBP">GBP (£)</option>
+                </select>
               </div>
               <button type="submit" className="btn btn-primary w-100">Create Account</button>
             </form>
