@@ -30,12 +30,15 @@ export default function LoginPage() {
       const data = await response.json();
       console.log(data);
 
+      console.log(" will i get the userId ?" , data.user);
+
       if (!response.ok) {
         throw new Error(data.message || "Invalid credentials");
       }
 
       localStorage.setItem("token", data.token);
       localStorage.setItem("User" , JSON.stringify(data.user.name));
+      localStorage.setItem("userId", data.user._id);
       navigate("/dashboard");
     } catch (err) {
       setError(err.message);

@@ -1,51 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { ArrowRight, CreditCard, DollarSign } from "lucide-react";
 import TransactionItem from "./TransactionItem";
 import styles from "../styles/dashboard.module.css";
 
 const RecentTransactions = () => {
-  const transactions = [
-    {
-      title: "Online Shopping",
-      company: "Amazon.com",
-      amount: -120.5,
-      date: "Today, 2:45 PM",
-      icon: <CreditCard size={20} color="#EF4444" />,
-      iconBg: "rgba(239, 68, 68, 0.1)",
-    },
-    {
-      title: "Salary Deposit",
-      company: "Employer Inc.",
-      amount: 3500.0,
-      date: "Yesterday, 9:30 AM",
-      icon: <DollarSign size={20} color="#34D399" />,
-      iconBg: "rgba(52, 211, 153, 0.1)",
-    },
-    {
-      title: "Restaurant",
-      company: "Delicious Cafe",
-      amount: -45.8,
-      date: "Yesterday, 7:15 PM",
-      icon: <CreditCard size={20} color="#EF4444" />,
-      iconBg: "rgba(239, 68, 68, 0.1)",
-    },
-    {
-      title: "Utility Bill",
-      company: "Electric Company",
-      amount: -85.0,
-      date: "Jun 15, 10:00 AM",
-      icon: <CreditCard size={20} color="#EF4444" />,
-      iconBg: "rgba(239, 68, 68, 0.1)",
-    },
-    {
-      title: "Freelance Payment",
-      company: "Client XYZ",
-      amount: 750.0,
-      date: "Jun 14, 3:20 PM",
-      icon: <DollarSign size={20} color="#34D399" />,
-      iconBg: "rgba(52, 211, 153, 0.1)",
-    },
-  ];
+  const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const token = localStorage.getItem("token"); // Get auth token from localStorage
+  const userId = localStorage.getItem("userId"); // Get userId from localStorage
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        if (!token || !userId) {
+          setError("Authentication error: Missing token or userId");
+          setLoading(false);
+          return;
+        }
+
+        const response = await axios.get(`http://localhost:5000/api/transaction/${userId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        const transactionsData = response.data.transactions || [];
+
+        // Map backend data to frontend structure
+        const formattedTransactions = transactionsData.map((txn) => ({
+          title: txn.category || "Transaction",
+          company: txn.merchant || "Unknown",
+          amount: txn.amount,
+          date: new Date(txn.date).toLocaleString(),
+          icon: txn.amount < 0 ? (
+            <CreditCard size={20} color="#EF4444" />
+          ) : (
+            <DollarSign size={20} color="#34D399" />
+          ),
+          iconBg: txn.amount < 0 ? "rgba(239, 68, 68, 0.1)" : "rgba(52, 211, 153, 0.1)",
+        }));
+
+        setTransactions(formattedTransactions);
+      } catch (err) {
+        console.error("Error fetching transactions:", err.response ? err.response.data : err.message);
+        setError("Failed to load transactions");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTransactions();
+  }, [token, userId]);
+
+  if (loading) return <p>Loading transactions...</p>;
+  if (error) return <p className={styles.error}>{error}</p>;
 
   return (
     <section className={styles.recentTransactions}>
@@ -56,12 +65,17 @@ const RecentTransactions = () => {
         </a>
       </div>
       <div className={styles.transactionList}>
-        {transactions.map((transaction, index) => (
-          <TransactionItem key={index} {...transaction} />
-        ))}
+        {transactions.length > 0 ? (
+          transactions.map((transaction, index) => (
+            <TransactionItem key={index} {...transaction} />
+          ))
+        ) : (
+          <p>No recent transactions found.</p>
+        )}
       </div>
     </section>
   );
 };
 
 export default RecentTransactions;
+

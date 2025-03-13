@@ -2,7 +2,8 @@ const Transaction=  require("../models/transaction");
 
 module.exports.addTransactions = async (req, res) => {
   try {
-      const { userId, amount, category, type, isRecurring, recurrenceInterval } = req.body;
+      const {amount, category, type, isRecurring, recurrenceInterval } = req.body;
+      const userId = req.user._id;
       const transaction = new Transaction({ userId, amount, category, type, isRecurring, recurrenceInterval });
       await transaction.save();
       res.status(201).json({ success: true, message: 'Transaction added successfully', transaction });
@@ -11,18 +12,29 @@ module.exports.addTransactions = async (req, res) => {
   }
 } ;
 
-module.exports.getAllTransaction =  async (req, res) => {
-  try {
-      const transactions = await Transaction.find({ userId: req.params.userId }).sort({ date: -1 });
-      res.json({ success: true, transactions });
-  } catch (error) {
-      res.status(500).json({ success: false, error: error.message });
-  }
-}
+module.exports.getAllTransaction = async (req, res) => {
+    const userId = req.params.userId; // Extract userId properly
+
+    try {
+        const transactions = await Transaction.find({ userId }).sort({ date: -1 });
+
+        // Calculate total expense
+        const totalExpense = transactions
+            .filter(transaction => transaction.type === "expense")
+            .reduce((sum, transaction) => sum + transaction.amount, 0);
+
+        res.json({ success: true, transactions, totalExpense });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+};
+
 
 module.exports.editTransaction =async (req, res) => {
+
+    const userId = req.user._id;
   try {
-      const updatedTransaction = await Transaction.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      const updatedTransaction = await Transaction.findByIdAndUpdate(userId, req.body, { new: true });
       res.json({ success: true, message: 'Transaction updated successfully', updatedTransaction });
   } catch (error) {
       res.status(500).json({ success: false, error: error.message });
@@ -30,8 +42,10 @@ module.exports.editTransaction =async (req, res) => {
 } ;
 
 module.exports.deleteTranscations = async (req, res) => {
+
+    const userId = req.user._id;
   try {
-      await Transaction.findByIdAndDelete(req.params.id);
+      await Transaction.findByIdAndDelete(userId);
       res.json({ success: true, message: 'Transaction deleted successfully' });
   } catch (error) {
       res.status(500).json({ success: false, error: error.message });
@@ -40,7 +54,7 @@ module.exports.deleteTranscations = async (req, res) => {
 
 module.exports.getsummary = async (req, res) => {
   try {
-      const { userId } = req.params;
+      const { userId } = req.user._id;
       const currentMonth = new Date().getMonth();
       const currentYear = new Date().getFullYear();
 

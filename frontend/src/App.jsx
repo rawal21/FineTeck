@@ -7,6 +7,7 @@ import Signup from "./pages/Signup"
 import Aboutpage from "./pages/About"
 
 import Developer from "./pages/Developer"
+import TransactionsPage from "./pages/Transaction/TransactionPage"
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/about" element={<Aboutpage />} />
           <Route path="/developer" element={<Developer />} />
+          <Route path="/transactions" element={<TransactionsPage />} />
         </Routes>
       </div>
     </Router>
