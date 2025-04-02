@@ -1,79 +1,37 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-const Transaction = require("./models/transaction"); // Adjust path if needed
+const Budget = require("./models/budgetModel");
 
-const MONGO_URI = process.env.MONGO_URL || "mongodb://localhost:27017/yourDatabaseName";
+const userId = "67c49fdca9547b6f974fdcd7"; // Given userId
 
-// Connect to MongoDB
-mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("MongoDB connected"))
-  .catch(err => console.error("MongoDB connection error:", err));
+const dummyBudgetData = {
+  userId: userId,
+  monthlyBudget: 5000, // Example budget
+  categories: [
+    { name: "Food", allocated: 1200, spent: 500 },
+    { name: "Rent", allocated: 2000, spent: 2000 },
+    { name: "Transport", allocated: 500, spent: 300 },
+    { name: "Entertainment", allocated: 800, spent: 400 },
+    { name: "Savings", allocated: 500, spent: 0 },
+  ],
+};
 
-// Dummy transaction data
-const transactions = [
-  {
-    userId: "67c49fdca9547b6f974fdcd7",
-    amount: 5000,
-    category: "Salary",
-    date: new Date("2025-03-01T10:00:00Z"),
-    type: "income",
-    isRecurring: true,
-    recurrenceInterval: "monthly",
-  },
-  {
-    userId: "67c49fdca9547b6f974fdcd7",
-    amount: 200,
-    category: "Groceries",
-    date: new Date("2025-03-05T14:30:00Z"),
-    type: "expense",
-    isRecurring: false,
-  },
-  {
-    userId: "67c49fdca9547b6f974fdcd7",
-    amount: 100,
-    category: "Subscription",
-    date: new Date("2025-03-10T08:00:00Z"),
-    type: "expense",
-    isRecurring: true,
-    recurrenceInterval: "monthly",
-  },
-  {
-    userId: "67c49fdca9547b6f974fdcd7",
-    amount: 50,
-    category: "Transport",
-    date: new Date("2025-03-12T09:15:00Z"),
-    type: "expense",
-    isRecurring: false,
-  },
-  {
-    userId: "67c49fdca9547b6f974fdcd7",
-    amount: 300,
-    category: "Freelance",
-    date: new Date("2025-03-15T16:45:00Z"),
-    type: "income",
-    isRecurring: false,
-  },
-  {
-    userId: "67c49fdca9547b6f974fdcd7",
-    amount: 150,
-    category: "Dining Out",
-    date: new Date("2025-03-18T19:00:00Z"),
-    type: "expense",
-    isRecurring: false,
-  },
-];
-
-// Insert data into MongoDB
-const seedDB = async () => {
+const seedDatabase = async () => {
   try {
-    await Transaction.deleteMany({}); // Optional: Clear old data
-    const insertedTransactions = await Transaction.insertMany(transactions);
-    console.log(`${insertedTransactions.length} transactions added successfully.`);
+    await mongoose.connect(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+
+    await Budget.deleteMany({ userId }); // Optional: Clear existing budgets for this user
+    await Budget.create(dummyBudgetData);
+
+    console.log("Dummy budget data added successfully!");
+    mongoose.connection.close();
   } catch (error) {
-    console.error("Error inserting transactions:", error);
-  } finally {
-    mongoose.connection.close(); // Close connection after operation
+    console.error("Error seeding budget data:", error);
+    mongoose.connection.close();
   }
 };
 
-seedDB();
+seedDatabase();

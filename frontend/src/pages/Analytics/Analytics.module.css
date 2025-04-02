@@ -1,0 +1,390 @@
+.financialInsightsContainer {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.pageTitle {
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.pageSubtitle {
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.insightTabs {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.insightTabs :global(.nav-link) {
+  color: #495057;
+  font-weight: 500;
+  padding: 10px 20px;
+  border: none;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.insightTabs :global(.nav-link.active) {
+  color: #4a90e2;
+  border-bottom: 3px solid #4a90e2;
+  background-color: transparent;
+}
+
+.chartCard {
+  height: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  border: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chartCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.chartContainer {
+  position: relative;
+  height: 300px;
+  margin-bottom: 15px;
+}
+
+.chartInsights {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.insightItem {
+  flex: 1;
+  min-width: 150px;
+  text-align: center;
+  padding: 10px;
+}
+
+.insightLabel {
+  display: block;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.insightValue {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.patternInsights {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.patternInsights h5 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.patternInsights ul {
+  padding-left: 20px;
+}
+
+.patternInsights li {
+  margin-bottom: 8px;
+  color: #555;
+}
+
+/* Savings Tips Styles */
+.savingsSummaryCard {
+  background: linear-gradient(135deg, #4a90e2, #6a5acd);
+  color: white;
+  border: none;
+}
+
+.savingsSummary {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.summaryItem {
+  flex: 1;
+  min-width: 120px;
+  text-align: center;
+  padding: 15px 10px;
+}
+
+.summaryValue {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.summaryLabel {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.tipCard {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.tipCard:hover {
+  transform: translateY(-5px);
+}
+
+.tipHeader {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.tipIconDown,
+.tipIconStar,
+.tipIconLightning,
+.tipIconCalendar {
+  font-size: 24px;
+  margin-right: 15px;
+  padding: 10px;
+  border-radius: 50%;
+  background-color: #f8f9fa;
+}
+
+.tipIconDown {
+  color: #28a745;
+  background-color: rgba(40, 167, 69, 0.1);
+}
+
+.tipIconStar {
+  color: #ffc107;
+  background-color: rgba(255, 193, 7, 0.1);
+}
+
+.tipIconLightning {
+  color: #17a2b8;
+  background-color: rgba(23, 162, 184, 0.1);
+}
+
+.tipIconCalendar {
+  color: #dc3545;
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+.tipImpact {
+  font-size: 14px;
+  color: #28a745;
+  margin-top: 5px;
+}
+
+.tipActionBtn {
+  margin-top: 10px;
+}
+
+.savingsGoalCard {
+  height: 100%;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.goalItem {
+  margin-bottom: 20px;
+}
+
+.goalHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.goalDetails {
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
+}
+
+/* Budget Recommendations Styles */
+.budgetAnalysisCard {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.categoryItem {
+  margin-bottom: 20px;
+}
+
+.categoryHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.overBudget {
+  color: #dc3545;
+}
+
+.underBudget {
+  color: #28a745;
+}
+
+.onBudget {
+  color: #17a2b8;
+}
+
+.categoryDetails {
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
+}
+
+.recommendationCard {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.recommendationCard:hover {
+  transform: translateY(-5px);
+}
+
+.recommendationHeader {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.recommendationIconUp,
+.recommendationIconDown,
+.recommendationIconTrophy {
+  font-size: 24px;
+  margin-right: 15px;
+  padding: 10px;
+  border-radius: 50%;
+  background-color: #f8f9fa;
+}
+
+.recommendationIconUp {
+  color: #dc3545;
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+.recommendationIconDown {
+  color: #28a745;
+  background-color: rgba(40, 167, 69, 0.1);
+}
+
+.recommendationIconTrophy {
+  color: #ffc107;
+  background-color: rgba(255, 193, 7, 0.1);
+}
+
+.recommendationStatus {
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
+}
+
+.recommendationActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.budgetOptimizationCard,
+.budgetForecastCard {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.optimizationSummary {
+  text-align: center;
+  padding: 15px 0;
+}
+
+.optimizationSummary .summaryValue {
+  font-size: 36px;
+  font-weight: 700;
+  color: #4a90e2;
+}
+
+.optimizationDetails ul {
+  padding-left: 20px;
+}
+
+.optimizationDetails li {
+  margin-bottom: 8px;
+}
+
+.forecastSummary {
+  text-align: center;
+  font-size: 14px;
+}
+
+.forecastChart {
+  height: 250px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .chartContainer {
+    height: 250px;
+  }
+
+  .summaryItem {
+    padding: 10px 5px;
+  }
+
+  .summaryValue {
+    font-size: 24px;
+  }
+
+  .recommendationActions {
+    flex-direction: column;
+  }
+
+  .recommendationActions button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .insightTabs :global(.nav-link) {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .chartInsights {
+    flex-direction: column;
+  }
+
+  .insightItem {
+    margin-bottom: 15px;
+  }
+
+  .savingsSummary {
+    flex-direction: column;
+  }
+
+  .summaryItem {
+    margin-bottom: 15px;
+  }
+}
+

@@ -67,7 +67,7 @@ const TransactionTable = ({ transactions, onEdit, onDelete, sortConfig, requestS
                       transaction.type === "income" ? styles.incomeAmount : styles.expenseAmount
                     }
                   >
-                    {transaction.type === "income" ? "+" : "-"}${transaction.amount.toFixed(2)}
+                    {transaction.type === "income" ? "+" : "-"}${transaction.amount}
                   </td>
                   <td className={styles.actionCell}>
                     <button
@@ -79,7 +79,7 @@ const TransactionTable = ({ transactions, onEdit, onDelete, sortConfig, requestS
                     </button>
                     <button
                       className={`btn btn-danger ${styles.deleteButton}`}
-                      onClick={() => onDelete(transaction.id)}
+                      onClick={() => onDelete(transaction._id)}
                       aria-label="Delete transaction"
                     >
                       Delete
@@ -88,7 +88,7 @@ const TransactionTable = ({ transactions, onEdit, onDelete, sortConfig, requestS
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table> 
         </div>
       ) : (
         <div className={styles.noTransactions}>

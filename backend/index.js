@@ -22,7 +22,7 @@ config() ;
 app.use("/api/auth" , authRoutes);
 app.use("/api/user" , profileRoutes);
 app.use("/api/transaction" , transactionRoutes);
-app.use("/api/budget" , BudgetRoutes);
+app.use("/api/budgets" , BudgetRoutes);
 app.use("/api/insights" , AiRoutes);
 app.use("/api/group", GroupRoutes);
 app.use("/api/report" , reportRoutes);

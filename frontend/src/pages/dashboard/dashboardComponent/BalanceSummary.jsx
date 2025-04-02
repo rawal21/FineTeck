@@ -33,12 +33,13 @@ const BalanceSummary = () => {
         console.log("Transaction Data:", transactionResponse.data);
 
         // Extract relevant data
-        const { income, savings = 0 } = profileResponse.data;
+        const { income,  } = profileResponse.data;
         const transactions = transactionResponse.data.transactions || [];
         
         // Calculate total expenses
         // const totalExpense = transactions.reduce((sum, txn) => sum + (txn.amount || 0), 0);
         const totalExpense = transactionResponse.data.totalExpense;
+        const savings = income - totalExpense;
 
         // Calculate percentage changes dynamically
         const balanceChangePercent = totalExpense !== 0 ? ((income - totalExpense) / totalExpense) * 100 : 100;

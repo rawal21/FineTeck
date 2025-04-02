@@ -9,8 +9,8 @@ const RecentTransactions = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const token = localStorage.getItem("token"); // Get auth token from localStorage
-  const userId = localStorage.getItem("userId"); // Get userId from localStorage
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -30,15 +30,14 @@ const RecentTransactions = () => {
         // Map backend data to frontend structure
         const formattedTransactions = transactionsData.map((txn) => ({
           title: txn.category || "Transaction",
-          company: txn.merchant || "Unknown",
           amount: txn.amount,
           date: new Date(txn.date).toLocaleString(),
-          icon: txn.amount < 0 ? (
+          icon: txn.type === "expense" ? (
             <CreditCard size={20} color="#EF4444" />
           ) : (
             <DollarSign size={20} color="#34D399" />
           ),
-          iconBg: txn.amount < 0 ? "rgba(239, 68, 68, 0.1)" : "rgba(52, 211, 153, 0.1)",
+          iconBg: txn.type === "expense" ? "rgba(239, 68, 68, 0.1)" : "rgba(52, 211, 153, 0.1)",
         }));
 
         setTransactions(formattedTransactions);
@@ -78,4 +77,3 @@ const RecentTransactions = () => {
 };
 
 export default RecentTransactions;
-

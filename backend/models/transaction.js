@@ -6,6 +6,7 @@ const transactionSchema = new mongoose.Schema({
     category: { type: String, required: true },
     date: { type: Date, default: Date.now },
     type: { type: String, enum: ['income', 'expense'], required: true }, // 'income' or 'expense'
+    description: { type: String } ,
     isRecurring: { type: Boolean, default: false }, // Recurring Transaction
     recurrenceInterval: { type: String, enum: ['daily', 'weekly', 'monthly'], default: null } // If recurring
 });

@@ -8,6 +8,8 @@ import Aboutpage from "./pages/About"
 
 import Developer from "./pages/Developer"
 import TransactionsPage from "./pages/Transaction/TransactionPage"
+import BudgetPage from "./pages/budget/BudgetPage"
+import FinancialInsights from "./pages/Analytics/Analytics"
 
 function App() {
   return (
@@ -22,6 +24,11 @@ function App() {
           <Route path="/about" element={<Aboutpage />} />
           <Route path="/developer" element={<Developer />} />
           <Route path="/transactions" element={<TransactionsPage />} />
+          <Route path="/budgets" element={<BudgetPage />} />
+          <Route path="/budgets" element={<BudgetPage />} /> 
+          <Route path= "/analytics" element={<FinancialInsights/>} />
+        
+ 
         </Routes>
       </div>
     </Router>

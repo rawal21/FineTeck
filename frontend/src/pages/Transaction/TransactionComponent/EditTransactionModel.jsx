@@ -1,10 +1,27 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import styles from  "../styles/transaction.module.css"
+import styles from "../styles/transaction.module.css"
 
 const EditTransactionModal = ({ transaction, categories, onSave, onClose }) => {
-  const [formData, setFormData] = useState({ ...transaction })
+  // Ensure initial state is not undefined
+  const [formData, setFormData] = useState({
+    amount: "",
+    category: "",
+    description: "",
+    date: "",
+    type: "expense",
+    ...transaction, // Override defaults if transaction exists
+  })
+
+  console.log("passed data from transaction page ", transaction)
+
+  // Update formData when transaction changes
+  useEffect(() => {
+    if (transaction) {
+      setFormData(transaction)
+    }
+  }, [transaction])
 
   // Close modal when Escape key is pressed
   useEffect(() => {
@@ -20,7 +37,7 @@ const EditTransactionModal = ({ transaction, categories, onSave, onClose }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
+    setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
   const handleSubmit = (e) => {
@@ -42,6 +59,9 @@ const EditTransactionModal = ({ transaction, categories, onSave, onClose }) => {
   const handleModalClick = (e) => {
     e.stopPropagation()
   }
+
+  // Prevent rendering when transaction is undefined
+  if (!transaction) return null
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
@@ -81,7 +101,7 @@ const EditTransactionModal = ({ transaction, categories, onSave, onClose }) => {
                 type="number"
                 id="edit-amount"
                 name="amount"
-                value={formData.amount}
+                value={formData.amount || ""}
                 onChange={handleChange}
                 placeholder="0.00"
                 step="0.01"
@@ -98,17 +118,21 @@ const EditTransactionModal = ({ transaction, categories, onSave, onClose }) => {
               <select
                 id="edit-category"
                 name="category"
-                value={formData.category}
+                value={formData.category || ""}
                 onChange={handleChange}
                 required
                 className={styles.formSelect}
               >
                 <option value="">Select Category</option>
-                {categories[formData.type].map((category) => (
-                  <option key={category} value={category}>
-                    {category}
-                  </option>
-                ))}
+                {categories?.[formData.type]?.length ? (
+                  categories[formData.type].map((category) => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))
+                ) : (
+                  <option disabled>No categories available</option>
+                )}
               </select>
             </div>
 
@@ -118,7 +142,7 @@ const EditTransactionModal = ({ transaction, categories, onSave, onClose }) => {
                 type="date"
                 id="edit-date"
                 name="date"
-                value={formData.date}
+                value={formData.date || ""}
                 onChange={handleChange}
                 required
                 className={styles.formInput}
@@ -132,7 +156,7 @@ const EditTransactionModal = ({ transaction, categories, onSave, onClose }) => {
               type="text"
               id="edit-description"
               name="description"
-              value={formData.description}
+              value={formData.description || ""}
               onChange={handleChange}
               placeholder="Enter description"
               required
@@ -155,4 +179,3 @@ const EditTransactionModal = ({ transaction, categories, onSave, onClose }) => {
 }
 
 export default EditTransactionModal
-

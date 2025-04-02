@@ -11,7 +11,7 @@ import styles from "./styles/transaction.module.css";
 
 const categories = {
   income: ["Salary", "Freelance", "Gift", "Dividend", "Bonus", "Other"],
-  expense: ["Food", "Shopping", "Transportation", "Entertainment", "Utilities", "Health", "Other"],
+  expense: ["Food", "Shopping", "Transport", "Entertainment", "Utilities", "Health", "savinga","Other"],
 };
 
 export default function TransactionsPage() {
@@ -130,13 +130,15 @@ export default function TransactionsPage() {
   // Save edited transaction
   const handleSaveEdit = async (editedTransaction) => {
     try {
+
+      console.log("transaction id" , editedTransaction._id)
       const token = localStorage.getItem("token");
-      await axios.put(`http://localhost:5000/api/transaction/${editedTransaction.id}`, editedTransaction, {
+      await axios.put(`http://localhost:5000/api/transaction/edit/${editedTransaction._id}`, editedTransaction, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setTransactions(transactions.map((t) => (t.id === editedTransaction.id ? editedTransaction : t)));
+      setTransactions(transactions.map((t) => (t._id === editedTransaction._id ? editedTransaction : t)));
       setIsEditModalOpen(false);
     } catch (error) {
       console.error("Error updating transaction:", error);
@@ -145,15 +147,17 @@ export default function TransactionsPage() {
 
   // Handle deleting a transaction
   const handleDeleteTransaction = async (id) => {
+    
+     console.log("this is the log for the delete the item id " , id);
     if (window.confirm("Are you sure you want to delete this transaction?")) {
       try {
         const token = localStorage.getItem("token");
-        await axios.delete(`http://localhost:5000/api/transaction/${id}`, {
+        await axios.delete(`http://localhost:5000/api/transaction/delete/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        setTransactions(transactions.filter((t) => t.id !== id));
+        setTransactions(transactions.filter((t) => t._id !== id));
       } catch (error) {
         console.error("Error deleting transaction:", error);
       }
@@ -232,8 +236,10 @@ export default function TransactionsPage() {
           transaction={currentTransaction}
           onSave={handleSaveEdit}
           onClose={() => setIsEditModalOpen(false)}
+          categories={categories}
         />
       )}
     </Layout>
   );
 }
+
